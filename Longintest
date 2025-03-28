@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Affiliate Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Enter your email">
+    <button onclick="login()">Login</button>
+
+    <script>
+        function login() {
+            var email = document.getElementById("email").value;
+            fetch("function doGet(e) {
+  var email = e.parameter.email;
+  var sheet = SpreadsheetApp.openById("https://docs.google.com/spreadsheets/d/1gRsG-9RY7Gbx8t2ZxrCL0D51dZz941hlSGq3upa6jpo/edit?usp=drivesdk").getSheetByName("Affiliate_Data");
+  var data = sheet.getDataRange().getValues();
+
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][0] == email) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", dashboard: data[i][2] }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+  return ContentService.createTextOutput(JSON.stringify({ status: "error" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}=" + email)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        window.location.href = data.dashboard; // Redirect to affiliate dashboard
+                    } else {
+                        alert("Invalid email. Please contact support.");
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+</body>
+</html>
