@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Affiliate Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Enter your email">
+    <button onclick="login()">Login</button>
+
+    <script>
+        function login() {
+            var email = document.getElementById("email").value;
+            fetch("https://script.google.com/macros/s/AKfycbwOgNBML186RJ4dvdy_2ieQHwuqaE4ot1lED1MgJYn7/exec?email=" + email)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        window.location.href = data.dashboard; // Redirect to affiliate dashboard
+                    } else {
+                        alert("Invalid email. Please contact support.");
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+</body>
+</html>
